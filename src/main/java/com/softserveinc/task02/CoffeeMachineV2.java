@@ -3,7 +3,7 @@ package com.softserveinc.task02;
 import com.softserveinc.task01.CoffeeMachineV1;
 
 public class CoffeeMachineV2 extends CoffeeMachineV1 {
-    private final int milkReservoirCapacity;
+    protected final int milkReservoirCapacity;
 
     private int milk;
 
@@ -21,18 +21,27 @@ public class CoffeeMachineV2 extends CoffeeMachineV1 {
     }
     public boolean makeCappuccino() {
         if (makeEspresso() == false) {
+            return false;
+        }
+        if (milk < 85) {
             System.err.println("Not enough milk");
             return false;
         }
-        else return milk >= 85;
-    }
-    public boolean makeLatte() {
-        if (makeEspresso() == false) {
-            System.err.println("Not enough milk");
-            return false;
-        }
-        else return milk >= 150;
+        milk = milk - 85;
+//      milk -= 85; - alternative variant
+        return true;
     }
 
+    public boolean makeLatte() {
+        if (makeEspresso() == false) {
+            return false;
+        }
+        if (milk <150) {
+            System.err.println("Not enough milk");
+            return false;
+        }
+        milk = milk - 150;
+        return true;
+    }
 }
 
